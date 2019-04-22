@@ -19,12 +19,6 @@ For efficency's sake and testing purposes, I only used 10 rows of data for train
 are 8125 rows of data included in the CSV file, so more data can be used, or different data,
 with very simple alterations. 
 
-The program will output 'outputs after training.' After 200,000 iteratios, any 
-value X where X = K * e^-1 can be taken as a 1, where K is any decimal number. 
-Any value of X where X = K * e^(n < -1) can be taken as 0, where k is any decimal
-number and n is any integer. Values where X = K * e^-1 almost always see K = 9.99...,
-so hopefully the binary values of the predicted outputs are obvious. 
-
 ## How to Read the Output
 The program will output 'outputs after training.' After 200,000 iteratios, any 
 value X where X = K * e^-1 can be taken as a 1, where K is any decimal number. 
