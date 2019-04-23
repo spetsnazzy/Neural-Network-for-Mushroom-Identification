@@ -6,7 +6,11 @@
 # species of gilled mushrooms in the Agaricus and
 # Lepiota Family. This network identifies whether
 # a given sample is edible or poisonous based
-# on 22 attributes.  
+# on 22 attributes.
+# An output value approximately equal to 1
+# represents a poisonous mushroom, while an
+# output value approximately equal to 0 represents
+# an edible mushroom.
 
 import csv
 import numpy as np
