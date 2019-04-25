@@ -30,6 +30,38 @@ def sigmoid(x):
 def sigmoid_derivative(x):
     return x * (1 - x)
 
+def enumerator(training_inputs):
+    for each in training_inputs:
+        training_inputs[training_inputs == 'a'] = 0
+        training_inputs[training_inputs == 'b'] = 1 / 26
+        training_inputs[training_inputs == 'c'] = 2 / 26
+        training_inputs[training_inputs == 'd'] = 3 / 26
+        training_inputs[training_inputs == 'e'] = 4 / 26
+        training_inputs[training_inputs == 'f'] = 5 / 26
+        training_inputs[training_inputs == 'g'] = 6 / 26
+        training_inputs[training_inputs == 'h'] = 7 / 26
+        training_inputs[training_inputs == 'i'] = 8 / 26
+        training_inputs[training_inputs == 'j'] = 9 / 26
+        training_inputs[training_inputs == 'k'] = 10 / 26
+        training_inputs[training_inputs == 'l'] = 11 / 26
+        training_inputs[training_inputs == 'm'] = 12 / 26
+        training_inputs[training_inputs == 'n'] = 13 / 26
+        training_inputs[training_inputs == 'o'] = 14 / 26
+        training_inputs[training_inputs == 'p'] = 15 / 26
+        training_inputs[training_inputs == 'q'] = 16 / 26
+        training_inputs[training_inputs == 'r'] = 17 / 26
+        training_inputs[training_inputs == 's'] = 18 / 26
+        training_inputs[training_inputs == 't'] = 19 / 26
+        training_inputs[training_inputs == 'u'] = 20 / 26
+        training_inputs[training_inputs == 'v'] = 21 / 26
+        training_inputs[training_inputs == 'w'] = 22 / 26
+        training_inputs[training_inputs == 'x'] = 23 / 26
+        training_inputs[training_inputs == 'y'] = 24 / 26
+        training_inputs[training_inputs == 'z'] = 25 / 26
+        training_inputs[training_inputs == '?'] = 26 / 26
+
+    return training_inputs
+
 #################################################
 
 # Taking the mushroom data and splitting it into
@@ -39,49 +71,31 @@ mushy_matrix = np.array(mushy_data)
 # Initialize the training inputs
 training_inputs = np.delete(mushy_matrix, 0, 1)
 training_inputs = np.delete(training_inputs, 0, 0)
-training_inputs = training_inputs[:10]
+training_inputs = training_inputs[:25]
 
 # Initialize the known outputs for the corresponding training inputs
 training_outputs = mushy_matrix[:, [0]]
 training_outputs = np.delete(training_outputs, 0, 0)
-training_outputs = training_outputs[:10]
+training_outputs = training_outputs[:25]
+
+# Initialize testing Data
+test_data = np.delete(mushy_matrix, 0, 1)
+test_data = np.delete(test_data, 0, 0)
+test_data = test_data[50:60]
+enumerator(test_data)
+print("Test data")
+print(test_data)
 
 # Changes input fields to numerical inputs
 for each in training_outputs:
     training_outputs[training_outputs == 'p'] = 1
     training_outputs[training_outputs == 'e'] = 0
 
-for each in training_inputs:
-    training_inputs[training_inputs == 'a'] = 0
-    training_inputs[training_inputs == 'b'] = 1 / 26
-    training_inputs[training_inputs == 'c'] = 2 / 26
-    training_inputs[training_inputs == 'd'] = 3 / 26
-    training_inputs[training_inputs == 'e'] = 4 / 26
-    training_inputs[training_inputs == 'f'] = 5 / 26
-    training_inputs[training_inputs == 'g'] = 6 / 26
-    training_inputs[training_inputs == 'h'] = 7 / 26
-    training_inputs[training_inputs == 'i'] = 8 / 26
-    training_inputs[training_inputs == 'j'] = 9 / 26
-    training_inputs[training_inputs == 'k'] = 10 / 26
-    training_inputs[training_inputs == 'l'] = 11 / 26
-    training_inputs[training_inputs == 'm'] = 12 / 26
-    training_inputs[training_inputs == 'n'] = 13 / 26
-    training_inputs[training_inputs == 'o'] = 14 / 26
-    training_inputs[training_inputs == 'p'] = 15 / 26
-    training_inputs[training_inputs == 'q'] = 16 / 26
-    training_inputs[training_inputs == 'r'] = 17 / 26
-    training_inputs[training_inputs == 's'] = 18 / 26
-    training_inputs[training_inputs == 't'] = 19 / 26
-    training_inputs[training_inputs == 'u'] = 20 / 26
-    training_inputs[training_inputs == 'v'] = 21 / 26
-    training_inputs[training_inputs == 'w'] = 22 / 26
-    training_inputs[training_inputs == 'x'] = 23 / 26
-    training_inputs[training_inputs == 'y'] = 24 / 26
-    training_inputs[training_inputs == 'z'] = 25 / 26
-    training_inputs[training_inputs == '?'] = 26 / 26
+enumerator(training_inputs)
 
 training_inputs = training_inputs.astype(np.float)
 training_outputs = training_outputs.astype(np.float)
+test_data = test_data.astype(np.float)
 
 # Choosing a random seed for the weights for consistency
 # np.random.seed(1)
@@ -91,7 +105,7 @@ synaptic_weights = 2 * np.random.random((22,1)) - 1
 print("Random synaptic weights: ")
 print(synaptic_weights)
 
-for iteration in range(200000):
+for iteration in range(250000):
 
     input_layer = training_inputs
 
@@ -109,9 +123,19 @@ for iteration in range(200000):
 
 print("Synaptic weights after training: ")
 print(synaptic_weights)
-
+#
 print("Outputs after training: ")
 print(outputs)
 
 print("Desired Outputs: ")
 print(training_outputs)
+
+input_layer = test_data
+outputs = sigmoid(np.dot(input_layer, synaptic_weights))
+print(outputs)
+
+for each in outputs:
+    if(each >= .5):
+        print("poisonous")
+    else:
+        print("edible")
