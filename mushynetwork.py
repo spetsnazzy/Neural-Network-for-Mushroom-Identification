@@ -124,16 +124,18 @@ for iteration in range(250000):
 
 print("Synaptic weights after training: ")
 print(synaptic_weights)
-#
+
 print("Outputs after training: ")
 print(outputs)
 
 print("Desired Outputs: ")
 print(training_outputs)
 
+# Running the testing data through the network
 input_layer = test_data
 outputs = sigmoid(np.dot(input_layer, synaptic_weights))
 
+# Transforms test data output into readable format
 print("\nTest Data: ")
 for each in outputs:
     if(each >= .5):
