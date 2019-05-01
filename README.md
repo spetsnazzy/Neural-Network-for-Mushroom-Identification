@@ -11,13 +11,12 @@ specific CSV file I worked with on Kaggle at this link:  https://www.kaggle.com/
 All data was sourced from The Audubon Society Field Guide to North American Mushrooms. (1981) 
 
 ## Description
-This is a very simple neural network. There is no hidden layer and the error is defined
-as the raw difference between the expected output and predicted output. Qualatative 
-input data was enumerated and normalized. 
+This is a very simple neural network. There are no hidden layers and the error is defined
+as the raw difference between the expected output and predicted output.
 
 For efficency's sake and testing purposes, I only used 10 rows of data for training, but there 
 are 8125 rows of data included in the CSV file, so more data can be used, or different data,
-with very simple alterations. 
+with very simple alterations. (The network becomes inaccurate around 100 rows of training data.)
 
 ## How to Read the Output
 The program will output 'outputs after training.' After 200,000 iteratios, any 
@@ -28,6 +27,8 @@ so hopefully the binary values of the predicted outputs are obvious.
 
 In any case, a value approximately equal to 1 represents a poisonous mushroom, and a
 value approximately close to 0 represents an edible mushroom.
+
+The newly added testing data will print the word poisonous or edible depending on its prediction. Please note that when setting a range for test data, if you enter rows 25 through 35 for example as [25:35], the test data will actually be rows 27 through 37. 
 
 
 Please enjoy!
